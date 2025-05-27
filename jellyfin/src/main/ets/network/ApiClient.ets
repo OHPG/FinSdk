@@ -63,7 +63,9 @@ export class ApiClient {
 
   public updateServerInfo(serverInfo: ServerInfo) {
     this.serverInfo = serverInfo
-    let basePath = serverInfo.address.endsWith('/') ? serverInfo.address.slice(0, -1) : serverInfo.address;
+    let basePath = serverInfo.address.endsWith('/')
+      ? serverInfo.address.slice(0, -1)
+      : serverInfo.address;
     this.axios = new Axios({
       baseURL: basePath,
       paramsSerializer: {
