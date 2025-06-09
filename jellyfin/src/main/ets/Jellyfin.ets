@@ -1,6 +1,8 @@
 import { ActivityLogApi } from "./api/ActivityLogApi";
+import { ArtistsApi } from "./api/ArtistsApi";
 import { AudioApi } from "./api/AudioApi";
 import { DevicesApi } from "./api/DevicesApi";
+import { GenresApi } from "./api/GenresApi";
 import { ItemsApi } from "./api/ItemsApi";
 import { LibraryApi } from "./api/LibraryApi";
 import { MediaInfoApi } from "./api/MediaInfoApi";
@@ -43,6 +45,10 @@ export class Jellyfin {
   private userLibraryApi?: UserLibraryApi
 
   private itemsApi?: ItemsApi
+
+  private artistsApi?: ArtistsApi
+
+  private genresApi?: GenresApi
 
   private tvShowsApi?: TvShowsApi
 
@@ -112,6 +118,20 @@ export class Jellyfin {
       this.itemsApi = new ItemsApi(this.apiClient)
     }
     return this.itemsApi
+  }
+
+  public getArtistsApi(): ArtistsApi {
+    if (!this.artistsApi) {
+      this.artistsApi = new ArtistsApi(this.apiClient)
+    }
+    return this.artistsApi
+  }
+
+  public getGenresApi(): GenresApi {
+    if (!this.genresApi) {
+      this.genresApi = new GenresApi(this.apiClient)
+    }
+    return this.genresApi
   }
 
   public getTvShowsApi(): TvShowsApi {

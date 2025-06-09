@@ -1,4 +1,5 @@
 export { Jellyfin } from './src/main/ets/Jellyfin'
+export { Api } from './src/main/ets/api/Api'
 export { ClientInfo } from './src/main/ets/model/ClientInfo'
 export { DeviceInfo } from './src/main/ets/model/DeviceInfo'
 export { DeviceInfos } from './src/main/ets/model/DeviceInfos'
