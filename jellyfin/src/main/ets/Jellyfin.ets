@@ -6,6 +6,7 @@ import { GenresApi } from "./api/GenresApi";
 import { ItemsApi } from "./api/ItemsApi";
 import { LibraryApi } from "./api/LibraryApi";
 import { MediaInfoApi } from "./api/MediaInfoApi";
+import { PlaylistsApi } from "./api/PlaylistsApi";
 import { PlayStateApi } from "./api/PlayStateApi";
 import { SessionApi } from "./api/SessionApi";
 import { SystemApi } from "./api/SystemApi";
@@ -67,6 +68,8 @@ export class Jellyfin {
   private trickPlayApi?: TrickPlayApi
 
   private activityLogApi?: ActivityLogApi
+
+  private playlistApi?: PlaylistsApi
 
   constructor(parameters: JellyfinParameters) {
     this.clientInfo = parameters.clientInfo;
@@ -195,6 +198,13 @@ export class Jellyfin {
       this.activityLogApi = new ActivityLogApi(this.apiClient)
     }
     return this.activityLogApi
+  }
+
+  public getPlaylistApi(): PlaylistsApi {
+    if (!this.playlistApi) {
+      this.playlistApi = new PlaylistsApi(this.apiClient)
+    }
+    return this.playlistApi
   }
 
 }
