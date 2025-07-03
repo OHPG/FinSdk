@@ -3,7 +3,6 @@
     "name": "jellyfin_test",
     "type": "feature",
     "deviceTypes": [
-      "default",
       "tablet",
       "2in1",
       "car"
