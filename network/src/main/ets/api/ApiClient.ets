@@ -1,8 +1,7 @@
 import { Axios, AxiosRequestConfig, AxiosResponse, ParamsSerializerOptions } from "@ohos/axios"
-import { ClientInfo } from "../model/ClientInfo";
-import { DeviceInfo } from "../model/DeviceInfo";
-import { ServerInfo } from "../model/ServerInfo";
-import { UserInfo } from "../model/UserInfo";
+import { ClientInfo } from "../entity/ClientInfo";
+import { DeviceInfo } from "../entity/DeviceInfo";
+import { ServerInfo } from "../entity/ServerInfo";
 import { ApiError } from "./ApiError";
 import { ApiRequest } from "./ApiRequest";
 
@@ -20,13 +19,11 @@ export const FORM_TYPE = 'application/x-www-form-urlencoded'
  * @Version V1.0
  * @Description
  */
-export class ApiClient {
+export abstract class ApiClient {
 
-  readonly clientInfo: ClientInfo;
+  public readonly clientInfo: ClientInfo;
 
-  readonly deviceInfo: DeviceInfo;
-
-  private userInfo?: UserInfo
+  public readonly deviceInfo: DeviceInfo;
 
   private serverInfo?: ServerInfo
 
@@ -35,6 +32,27 @@ export class ApiClient {
   constructor(clientInfo: ClientInfo, deviceInfo: DeviceInfo) {
     this.clientInfo = clientInfo
     this.deviceInfo = deviceInfo
+  }
+
+  /**
+   * Update server address
+   * @param address
+   */
+  public updateServer(serverInfo: ServerInfo) {
+    this.serverInfo = serverInfo
+    let basePath = serverInfo.address.endsWith('/')
+      ? serverInfo.address.slice(0, -1)
+      : serverInfo.address;
+    this.axios = new Axios({
+      baseURL: basePath,
+      paramsSerializer: {
+        serialize: this.paramsSerializer
+      }
+    })
+  }
+
+  public getServer(): ServerInfo | undefined {
+    return this.serverInfo
   }
 
   private paramsSerializer(params: Record<string, ESObject>, options?: ParamsSerializerOptions): string {
@@ -61,45 +79,18 @@ export class ApiClient {
     return queryString;
   }
 
-  public updateServerInfo(serverInfo: ServerInfo) {
-    this.serverInfo = serverInfo
-    let basePath = serverInfo.address.endsWith('/')
-      ? serverInfo.address.slice(0, -1)
-      : serverInfo.address;
-    this.axios = new Axios({
-      baseURL: basePath,
-      paramsSerializer: {
-        serialize: this.paramsSerializer
-      }
-    })
-  }
-
-  public getServerInfo(): ServerInfo | undefined {
-    return this.serverInfo
-  }
-
-  public updateUserInfo(userInfo: UserInfo) {
-    this.userInfo = userInfo
-  }
-
-  private getSafeToken(): string {
-    if (this.userInfo && this.userInfo.token) {
-      return this.userInfo.token
-    }
-    return ""
-  }
-
   /**
    * Returns a valid authorization header string.
    */
-  public getAuthorizationHeader(): string {
-    return [
-      `MediaBrowser Client="${encodeURIComponent(this.clientInfo.name)}"`,
-      `Device="${encodeURIComponent(this.deviceInfo.name)}"`,
-      `DeviceId="${encodeURIComponent(this.deviceInfo.id)}"`,
-      `Version="${encodeURIComponent(this.clientInfo.version)}"`,
-      `Token="${encodeURIComponent(this.getSafeToken())}"`
-    ].join(', ');
+  protected abstract getAuthorization(): string
+
+  protected getHeaders(request: ApiRequest): Record<string, string> {
+    return {
+      'Content-Type': JSON_TYPE,
+      'Accept': HEADER_ACCEPT,
+      'Authorization': this.getAuthorization(),
+      'User-Agent': `${this.clientInfo.name}/${this.clientInfo.version} (HarmonyOS)`
+    }
   }
 
   private async request<T>(request: ApiRequest, method: string): Promise<T> {
@@ -110,11 +101,7 @@ export class ApiClient {
     let config: AxiosRequestConfig = {
       url: request.path,
       method: method,
-      headers: {
-        'Content-Type': JSON_TYPE,
-        'Accept': HEADER_ACCEPT,
-        'Authorization': this.getAuthorizationHeader()
-      },
+      headers: this.getHeaders(request),
       params: request.parameters,
       data: request.data
     }
@@ -150,11 +137,11 @@ export class ApiClient {
     let config: AxiosRequestConfig = {
       url: request.path,
       method: "GET",
-      headers: {
-        'Content-Type': JSON_TYPE,
-        'Accept': HEADER_ACCEPT,
-        'Authorization': this.getAuthorizationHeader()
-      },
+      // headers: {
+      //   'Content-Type': JSON_TYPE,
+      //   'Accept': HEADER_ACCEPT,
+      //   'Authorization': this.getAuthorization()
+      // },
       params: request.parameters
     }
     return this.axios.getUri(config)

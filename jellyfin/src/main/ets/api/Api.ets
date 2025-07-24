@@ -1,5 +1,5 @@
 import { RequiredError } from "../error/RequiredError";
-import { ApiClient } from "../network/ApiClient";
+import { ApiClient } from "@ohpg/network";
 
 /** Class representing the Jellyfin API. */
 export class Api {

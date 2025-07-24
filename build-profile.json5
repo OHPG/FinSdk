@@ -33,6 +33,14 @@
     {
       "name": "jellyfin",
       "srcPath": "./jellyfin",
+    },
+    {
+      "name": "emby",
+      "srcPath": "./emby",
+    },
+    {
+      "name": "network",
+      "srcPath": "./network",
     }
   ]
 }

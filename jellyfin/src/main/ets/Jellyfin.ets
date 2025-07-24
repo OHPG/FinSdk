@@ -16,16 +16,11 @@ import { UserApi } from "./api/UserApi";
 import { UserLibraryApi } from "./api/UserLibraryApi";
 import { UserViewsApi } from "./api/UserViewsApi";
 import { VideosApi } from "./api/VideosApi";
-import { ClientInfo } from "./model/ClientInfo";
-import { DeviceInfo } from "./model/DeviceInfo";
-import { ServerInfo } from "./model/ServerInfo";
-import { ApiClient } from "./network/ApiClient";
-
-/** Parameters to create a Jellyfin SDK instance. */
-export interface JellyfinParameters {
-  clientInfo: ClientInfo,
-  deviceInfo: DeviceInfo
-}
+import { ClientInfo } from "@ohpg/network";
+import { DeviceInfo } from "@ohpg/network";
+import { ServerInfo } from "@ohpg/network";
+import { ApiClient } from "@ohpg/network";
+import { JellyfinApiClient } from "./network/JellyfinApiClient";
 
 /** Class representing the Jellyfin SDK. */
 export class Jellyfin {
@@ -71,14 +66,15 @@ export class Jellyfin {
 
   private playlistApi?: PlaylistsApi
 
-  constructor(parameters: JellyfinParameters) {
-    this.clientInfo = parameters.clientInfo;
-    this.deviceInfo = parameters.deviceInfo;
-    this.apiClient = new ApiClient(this.clientInfo, this.deviceInfo)
+  constructor(clientInfo: ClientInfo,
+    deviceInfo: DeviceInfo) {
+    this.clientInfo = clientInfo;
+    this.deviceInfo = deviceInfo;
+    this.apiClient = new JellyfinApiClient(this.clientInfo, this.deviceInfo)
   }
 
   public selectServer(serverInfo: ServerInfo) {
-    this.apiClient.updateServerInfo(serverInfo)
+    this.apiClient.updateServer(serverInfo)
   }
 
   public getSystemApi(): SystemApi {

@@ -1,4 +1,4 @@
-import { ApiError } from "../network/ApiError";
+import { ApiError } from "@ohpg/network";
 
 export class RequiredError extends ApiError {
   constructor(message: string) {
