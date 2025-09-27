@@ -1,5 +1,4 @@
 import { Api } from "./Api"
-import { DeviceInfo } from "network/src/main/ets/entity/DeviceInfo"
 import { DeviceOptions } from "../model/DeviceOptions"
 import { DeviceOptionsDto } from "../model/DeviceOptionsDto"
 import { DeviceInfoQueryResult } from "../model/DeviceInfoQueryResult"

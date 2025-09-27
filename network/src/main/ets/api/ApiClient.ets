@@ -82,7 +82,7 @@ export abstract class ApiClient {
   /**
    * Returns a valid authorization header string.
    */
-  protected abstract getAuthorization(): string
+  public abstract getAuthorization(): string
 
   protected getHeaders(request: ApiRequest): Record<string, string> {
     return {

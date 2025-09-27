@@ -22,7 +22,7 @@ export class JellyfinApiClient extends ApiClient {
     return ""
   }
 
-  protected getAuthorization(): string {
+  public getAuthorization(): string {
     return [
       `MediaBrowser Client="${encodeURIComponent(this.clientInfo.name)}"`,
       `Device="${encodeURIComponent(this.deviceInfo.name)}"`,

@@ -16,7 +16,7 @@ import { UserApi } from "./api/UserApi";
 import { UserLibraryApi } from "./api/UserLibraryApi";
 import { UserViewsApi } from "./api/UserViewsApi";
 import { VideosApi } from "./api/VideosApi";
-import { ClientInfo } from "@ohpg/network";
+import { ClientInfo, UserInfo } from "@ohpg/network";
 import { DeviceInfo } from "@ohpg/network";
 import { ServerInfo } from "@ohpg/network";
 import { ApiClient } from "@ohpg/network";
@@ -75,6 +75,10 @@ export class Jellyfin {
 
   public selectServer(serverInfo: ServerInfo) {
     this.apiClient.updateServer(serverInfo)
+  }
+
+  public selectUser(userInfo: UserInfo) {
+    (this.apiClient as JellyfinApiClient).updateUserInfo(userInfo)
   }
 
   public getSystemApi(): SystemApi {
