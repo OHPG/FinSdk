@@ -14,6 +14,11 @@ export interface ApiRequest {
   readonly path: string
 
   /**
+   * url
+   */
+  readonly url?: string
+
+  /**
    * params
    */
   readonly parameters?: object

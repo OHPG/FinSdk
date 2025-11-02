@@ -100,6 +100,7 @@ export abstract class ApiClient {
 
     let config: AxiosRequestConfig = {
       url: request.path,
+      baseURL: request.url,
       method: method,
       headers: this.getHeaders(request),
       params: request.parameters,
