@@ -6,6 +6,6 @@
   "author": "peerless2012",
   "license": "Apache-2.0",
   "dependencies": {
-    "@ohos/axios": "2.2.4"
+    "@ohos/axios": "2.2.6"
   }
 }

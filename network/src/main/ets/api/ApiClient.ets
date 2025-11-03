@@ -1,4 +1,5 @@
 import { Axios, AxiosRequestConfig, AxiosResponse, ParamsSerializerOptions } from "@ohos/axios"
+import { rcp } from '@kit.RemoteCommunicationKit';
 import { ClientInfo } from "../entity/ClientInfo";
 import { DeviceInfo } from "../entity/DeviceInfo";
 import { ServerInfo } from "../entity/ServerInfo";
@@ -29,6 +30,8 @@ export abstract class ApiClient {
 
   private axios?: Axios
 
+  private rcpSession?: rcp.Session
+
   constructor(clientInfo: ClientInfo, deviceInfo: DeviceInfo) {
     this.clientInfo = clientInfo
     this.deviceInfo = deviceInfo
@@ -48,6 +51,10 @@ export abstract class ApiClient {
       paramsSerializer: {
         serialize: this.paramsSerializer
       }
+    })
+    this.rcpSession?.close()
+    this.rcpSession = rcp.createSession({
+      baseAddress: basePath
     })
   }
 
@@ -119,12 +126,36 @@ export abstract class ApiClient {
       })
   }
 
+  private async rcpRequest<T>(request: ApiRequest, method: string): Promise<T> {
+    if (this.rcpSession == undefined) {
+      throw new ApiError(403, "Server not set.") as Error
+    }
+    let rcpRequest: rcp.Request = new rcp.Request(
+      request.path, method, this.getHeaders(request), request.data
+    )
+    return this.rcpSession
+      .fetch(rcpRequest)
+      .then((response: rcp.Response) => {
+        if (response.statusCode === 204) {
+          return undefined as T
+        } else if (response.statusCode == 200) {
+          return response.toJSON() as T
+        } else {
+          throw new ApiError(response.statusCode, response.toString() || "") as Error
+        }
+      })
+  }
+
   public async post<T>(request: ApiRequest): Promise<T> {
     return this.request(request, "POST")
   }
 
   public async patch<T>(request: ApiRequest): Promise<T> {
-    return this.request(request, "PATCH")
+    return this.rcpRequest(request, "PATCH")
+  }
+
+  public async put<T>(request: ApiRequest): Promise<T> {
+    return this.rcpRequest(request, "PUT")
   }
 
   public async get<T>(request: ApiRequest): Promise<T> {
@@ -150,6 +181,11 @@ export abstract class ApiClient {
       params: request.parameters
     }
     return this.axios.getUri(config)
+  }
+
+  public release() {
+    this.rcpSession?.close()
+    this.rcpSession = undefined
   }
 
 }

@@ -46,10 +46,35 @@ export class ItemsApi extends Api {
 
   public async markBookReadProgress(id: string, page: number): Promise<void> {
     let data: Record<string, number | boolean> = {
-      "page": page
+      "page": page,
+      "completed": false
     }
     return this.apiClient.patch({
       path: "/api/v1/books/" + id + "/read-progress",
+      data: data
+    })
+  }
+
+  public async markBookProgression(id: string, page: number): Promise<void> {
+    let device: Record<string, string> = {
+      "id": this.apiClient.deviceInfo.id,
+      "name": this.apiClient.deviceInfo.name
+    }
+    let locator: Record<string, string | Record<string, string | number>> = {
+      "href": "OPS/chapter3.html",
+      "type":"application/xhtml+xml",
+      "locations": {
+        "progression": 0,
+        "position": 0
+      }
+    }
+    let data: Record<string, string | object> = {
+      "device": device,
+      "locator": locator,
+      "modified": (new Date()).toISOString()
+    }
+    return this.apiClient.put({
+      path: "/api/v1/books/" + id + "/progression",
       data: data
     })
   }

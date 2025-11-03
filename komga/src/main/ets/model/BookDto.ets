@@ -17,7 +17,7 @@ export interface BookDto {
   size: string
   media: MediaDto,
   metadata: MetadataDto,
-  readProgress: ReadProgressDto,
+  readProgress?: ReadProgressDto,
   deleted: boolean
   fileHash: string
   oneshot: boolean
