@@ -44,4 +44,30 @@ export class ItemsApi extends Api {
     })
   }
 
+  public async markBookReadProgress(id: string, page: number): Promise<void> {
+    let data: Record<string, number | boolean> = {
+      "page": page
+    }
+    return this.apiClient.patch({
+      path: "/api/v1/books/" + id + "/read-progress",
+      data: data
+    })
+  }
+
+  public async markBookRead(id: string): Promise<void> {
+    let data: Record<string, number | boolean> = {
+      "completed": true
+    }
+    return this.apiClient.patch({
+      path: "/api/v1/books/" + id + "/read-progress",
+      data: data
+    })
+  }
+
+  public async markBookUnread(id: string): Promise<void> {
+    return this.apiClient.delete({
+      path: "/api/v1/books/" + id + "/read-progress",
+    })
+  }
+
 }

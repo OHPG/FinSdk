@@ -1,5 +1,6 @@
 import { MediaDto } from "./MediaDto"
 import { MetadataDto } from "./MetadataDto"
+import { ReadProgressDto } from "./ReadProgressDto"
 
 export interface BookDto {
   id: string
@@ -16,7 +17,7 @@ export interface BookDto {
   size: string
   media: MediaDto,
   metadata: MetadataDto,
-  readProgress: object,
+  readProgress: ReadProgressDto,
   deleted: boolean
   fileHash: string
   oneshot: boolean

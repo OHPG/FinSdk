@@ -123,6 +123,10 @@ export abstract class ApiClient {
     return this.request(request, "POST")
   }
 
+  public async patch<T>(request: ApiRequest): Promise<T> {
+    return this.request(request, "PATCH")
+  }
+
   public async get<T>(request: ApiRequest): Promise<T> {
     return this.request(request, "GET")
   }
