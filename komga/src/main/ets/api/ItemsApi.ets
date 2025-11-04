@@ -39,6 +39,20 @@ export class ItemsApi extends Api {
     })
   }
 
+  public async search(keyword: string): Promise<BookResultDto> {
+    let data: Record<string, string> = {
+      "fullTextSearch": keyword
+    }
+    let param: Record<string, number> = {
+      "size": 100
+    }
+    return this.apiClient.post({
+      path: "/api/v1/books/list",
+      parameters: param,
+      data: data
+    })
+}
+
   public async getBook(id: string): Promise<BookDto> {
     return this.apiClient.get({
       path: "/api/v1/books/" + id,
