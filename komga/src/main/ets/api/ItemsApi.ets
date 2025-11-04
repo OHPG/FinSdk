@@ -4,7 +4,13 @@ import { Api } from "./Api";
 
 export class ItemsApi extends Api {
 
-  public async getBooks(id: string): Promise<BookResultDto> {
+  public async getBooks(id: string, page?: number): Promise<BookResultDto> {
+    let param: Record<string, number> | undefined
+    if (page) {
+      param= {
+        "page": page
+      }
+    }
     let operator: Record<string, string> = {
       "operator": "is",
       "value": id
@@ -28,6 +34,7 @@ export class ItemsApi extends Api {
     }
     return this.apiClient.post({
       path: "/api/v1/books/list",
+      parameters: param,
       data: data
     })
   }
