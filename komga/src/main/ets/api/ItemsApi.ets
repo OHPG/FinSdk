@@ -76,13 +76,13 @@ export class ItemsApi extends Api {
     })
   }
 
-  public async markBookProgression(id: string, page: number): Promise<void> {
+  public async markBookProgression(id: string, href: string, page: number): Promise<void> {
     let device: Record<string, string> = {
       "id": this.apiClient.deviceInfo.id,
       "name": this.apiClient.deviceInfo.name
     }
     let locator: Record<string, string | Record<string, string | number>> = {
-      "href": "OPS/chapter3.html",
+      "href": href,
       "type":"application/xhtml+xml",
       "locations": {
         "progression": 0,
