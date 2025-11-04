@@ -6,6 +6,7 @@ export { UserApi } from './src/main/ets/api/UserApi';
 export { Auth } from './src/main/ets/auth/Auth';
 export { AuthType } from './src/main/ets/auth/AuthType';
 export { BookDto } from './src/main/ets/model/BookDto';
+export { UserDto } from './src/main/ets/model/UserDto';
 export { ActuatorInfo } from './src/main/ets/model/ActuatorInfo';
 export { LibraryDto } from './src/main/ets/model/LibraryDto';
 export { ReadProgressDto } from './src/main/ets/model/ReadProgressDto';
