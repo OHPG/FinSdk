@@ -1,5 +1,6 @@
 import { BookDto } from "../model/BookDto";
 import { BookResultDto } from "../model/BookResultDto";
+import { ProgressDto } from "../model/ProgressDto";
 import { Api } from "./Api";
 
 export class ItemsApi extends Api {
@@ -77,26 +78,33 @@ export class ItemsApi extends Api {
   }
 
   public async markBookProgression(id: string, href: string, page: number): Promise<void> {
-    let device: Record<string, string> = {
-      "id": this.apiClient.deviceInfo.id,
-      "name": this.apiClient.deviceInfo.name
-    }
-    let locator: Record<string, string | Record<string, string | number>> = {
-      "href": href,
-      "type":"application/xhtml+xml",
-      "locations": {
-        "progression": 0,
-        "position": 0
-      }
-    }
-    let data: Record<string, string | object> = {
-      "device": device,
-      "locator": locator,
-      "modified": (new Date()).toISOString()
+    let progressDto: ProgressDto = {
+      device: {
+        "id": this.apiClient.deviceInfo.id,
+        "name": this.apiClient.deviceInfo.name
+      },
+      locator: {
+        "href": href,
+        title: undefined,
+        "type":"application/xhtml+xml",
+        "locations": {
+          fragments: [],
+          position: page,
+          progression: 0,
+          totalProgression: 0
+        }
+      },
+      modified: (new Date()).toISOString()
     }
     return this.apiClient.put({
       path: "/api/v1/books/" + id + "/progression",
-      data: data
+      data: progressDto
+    })
+  }
+
+  public async getBookProgression(id: string): Promise<ProgressDto> {
+    return this.apiClient.get({
+      path: "/api/v1/books/" + id + "/progression",
     })
   }
 
