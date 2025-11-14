@@ -10,3 +10,4 @@ export { UserDto } from './src/main/ets/model/UserDto';
 export { ActuatorInfo } from './src/main/ets/model/ActuatorInfo';
 export { LibraryDto } from './src/main/ets/model/LibraryDto';
 export { ReadProgressDto } from './src/main/ets/model/ReadProgressDto';
+export { ProgressDto } from './src/main/ets/model/ProgressDto';
