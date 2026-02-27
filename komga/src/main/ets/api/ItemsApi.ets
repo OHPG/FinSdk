@@ -1,42 +1,24 @@
 import { BookDto } from "../model/BookDto";
 import { BookResultDto } from "../model/BookResultDto";
 import { ProgressDto } from "../model/ProgressDto";
+import { DataTool } from "../tool/DataTool";
 import { Api } from "./Api";
 
 export class ItemsApi extends Api {
 
-  public async getBooks(id: string, page?: number): Promise<BookResultDto> {
-    let param: Record<string, number> | undefined
-    if (page) {
-      param= {
-        "page": page
-      }
-    }
-    let operator: Record<string, string> = {
-      "operator": "is",
-      "value": id
-    }
-    let library: Record<string, object> = {
-      "libraryId": operator
-    }
-    let anyOf: Array<Record<string, object>> = [
-      library
-    ]
-    let allOf: Array<Record<string, object>> = [
-      {
-        "anyOf": anyOf
-      }
-    ]
-    let condition: Record<string, ESObject> = {
-      "allOf": allOf
-    }
-    let data: Record<string, ESObject> = {
-      "condition": condition
-    }
+  public async getLibraryBooks(id: string, page?: number): Promise<BookResultDto> {
     return this.apiClient.post({
       path: "/api/v1/books/list",
-      parameters: param,
-      data: data
+      parameters: DataTool.buildPageData(page),
+      data: DataTool.buildLibraryData(id)
+    })
+  }
+
+  public async getSeriesBooks(id: string, page?: number): Promise<BookResultDto> {
+    return this.apiClient.post({
+      path: "/api/v1/books/list",
+      parameters: DataTool.buildPageData(page),
+      data: DataTool.buildSeriesData(id)
     })
   }
 

@@ -1,6 +1,7 @@
 export { Komga } from './src/main/ets/Komga';
 export { ItemsApi } from './src/main/ets/api/ItemsApi';
 export { LibraryApi } from './src/main/ets/api/LibraryApi';
+export { SeriesApi } from './src/main/ets/api/SeriesApi';
 export { SystemApi } from './src/main/ets/api/SystemApi';
 export { UserApi } from './src/main/ets/api/UserApi';
 export { Auth } from './src/main/ets/auth/Auth';

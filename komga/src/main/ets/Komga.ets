@@ -6,6 +6,7 @@ import { KomgaApiClient } from "./network/KomgaApiClient";
 import { UserApi } from "./api/UserApi";
 import { LibraryApi } from "./api/LibraryApi";
 import { ItemsApi } from "./api/ItemsApi";
+import { SeriesApi } from "./api/SeriesApi";
 
 /**
  * @Author peerless2012
@@ -25,6 +26,8 @@ export class Komga {
   private systemApi?: SystemApi
 
   private userApi?: UserApi
+
+  private seriesApi?: SeriesApi
 
   private libraryApi?: LibraryApi
 
@@ -64,6 +67,13 @@ export class Komga {
       this.libraryApi = new LibraryApi(this.apiClient)
     }
     return this.libraryApi
+  }
+
+  public getSeriesApi(): SeriesApi {
+    if (!this.seriesApi) {
+      this.seriesApi = new SeriesApi(this.apiClient)
+    }
+    return this.seriesApi
   }
 
   public getItemsApi(): ItemsApi {
