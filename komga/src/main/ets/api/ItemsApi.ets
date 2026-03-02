@@ -14,6 +14,52 @@ export class ItemsApi extends Api {
     })
   }
 
+  public async getResumeBooks(ids: Array<string>): Promise<BookResultDto> {
+    let params: Record<string, string> = {
+      "sort": encodeURIComponent("readProgress.readDate,desc")
+    }
+    return this.apiClient.post({
+      path: "/api/v1/books/list",
+      parameters: params,
+      data: DataTool.buildResumeData(ids)
+    })
+  }
+
+  public async getNewBooks(ids: Array<string>): Promise<BookResultDto> {
+    let params: Record<string, string> = {
+      "sort": encodeURIComponent("createdDate,desc")
+    }
+    return this.apiClient.post({
+      path: "/api/v1/books/list",
+      parameters: params as ESObject as object,
+      data: DataTool.buildNewData(ids)
+    })
+  }
+
+  public async getNewSeries(ids: Array<string>): Promise<BookResultDto> {
+    let params: Array<Record<string, string>> = []
+    ids.forEach((id) => {
+      params.push({"library_id": id})
+    })
+    params.push({"oneshot" : "false"})
+    return this.apiClient.get({
+      path: "/api/v1/series/new",
+      parameters: params as ESObject as object,
+    })
+  }
+
+  public async getUpdateSeries(ids: Array<string>): Promise<BookResultDto> {
+    let params: Array<Record<string, string>> = []
+    ids.forEach((id) => {
+      params.push({"library_id": id})
+    })
+    params.push({"oneshot" : "false"})
+    return this.apiClient.get({
+      path: "/api/v1/series/updated",
+      parameters: params as ESObject as object,
+    })
+  }
+
   public async getSeriesBooks(id: string, page?: number): Promise<BookResultDto> {
     return this.apiClient.post({
       path: "/api/v1/books/list",
