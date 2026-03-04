@@ -28,7 +28,7 @@ export class DataTool {
   public static buildSeriesData(id: string): object {
     let operator: Record<string, string> = {
       "operator": "is",
-      "value": "0P6TD8A97B4PR"
+      "value": id
     }
     let seriesId: Record<string, object> = {
       "seriesId": operator
@@ -107,10 +107,12 @@ export class DataTool {
   }
 
   public static buildPageData(page?: number): object | undefined {
-    let param: Record<string, number> | undefined
+    let param: Record<string, number | string> | undefined
     if (page) {
       param= {
-        "page": page
+        "page": page,
+        "size": 20,
+        "sort": encodeURIComponent("metadata.numberSort,asc")
       }
     }
     return param

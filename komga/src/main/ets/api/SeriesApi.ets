@@ -12,4 +12,12 @@ export class SeriesApi extends Api {
     })
   }
 
+  public async seriesBooks(id: string, page?: number): Promise<BookResultDto> {
+    return this.apiClient.post({
+      path: "/api/v1/books/list",
+      parameters: DataTool.buildPageData(page),
+      data: DataTool.buildSeriesData(id)
+    })
+  }
+
 }
