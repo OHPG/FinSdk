@@ -106,10 +106,10 @@ export class DataTool {
     return data
   }
 
-  public static buildPageData(page?: number): object | undefined {
+  public static buildPageData(page?: number, pageSize?: number): object | undefined {
     let param: Record<string, number | string> | undefined = {
       "page": page || 0,
-      "size": 20,
+      "size": pageSize || 20,
       "sort": encodeURIComponent("metadata.numberSort,asc")
     }
     return param

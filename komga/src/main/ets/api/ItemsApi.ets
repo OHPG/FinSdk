@@ -6,10 +6,10 @@ import { Api } from "./Api";
 
 export class ItemsApi extends Api {
 
-  public async getLibraryBooks(id: string, page?: number): Promise<BookResultDto> {
+  public async getLibraryBooks(id: string, page?: number, pageSize?: number): Promise<BookResultDto> {
     return this.apiClient.post({
       path: "/api/v1/books/list",
-      parameters: DataTool.buildPageData(page),
+      parameters: DataTool.buildPageData(page, pageSize),
       data: DataTool.buildLibraryData(id)
     })
   }
@@ -60,10 +60,10 @@ export class ItemsApi extends Api {
     })
   }
 
-  public async getSeriesBooks(id: string, page?: number): Promise<BookResultDto> {
+  public async getSeriesBooks(id: string, page?: number, pageSize?: number): Promise<BookResultDto> {
     return this.apiClient.post({
       path: "/api/v1/books/list",
-      parameters: DataTool.buildPageData(page),
+      parameters: DataTool.buildPageData(page, pageSize),
       data: DataTool.buildSeriesData(id)
     })
   }
