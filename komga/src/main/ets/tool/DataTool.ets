@@ -1,3 +1,6 @@
+import { SortBy } from "../enum/SortBy"
+import { SortOrder } from "../enum/SortOrder"
+
 export class DataTool {
 
   public static buildLibraryData(id: string): object {
@@ -106,11 +109,11 @@ export class DataTool {
     return data
   }
 
-  public static buildPageData(page?: number, pageSize?: number): object | undefined {
+  public static buildPageData(page?: number, pageSize?: number, sortBy?: string, sortOrder?: string): object | undefined {
     let param: Record<string, number | string> | undefined = {
       "page": page || 0,
-      "size": pageSize || 20,
-      "sort": encodeURIComponent("metadata.numberSort,asc")
+      "size": pageSize || 50,
+      "sort": encodeURIComponent(`${sortBy || SortBy.Title},${sortOrder || SortOrder.Asc}`)
     }
     return param
   }

@@ -60,10 +60,10 @@ export class ItemsApi extends Api {
     })
   }
 
-  public async getSeriesBooks(id: string, page?: number, pageSize?: number): Promise<BookResultDto> {
+  public async getSeriesBooks(id: string, page?: number, pageSize?: number, sortBy?: string, sortOrder?: string): Promise<BookResultDto> {
     return this.apiClient.post({
       path: "/api/v1/books/list",
-      parameters: DataTool.buildPageData(page, pageSize),
+      parameters: DataTool.buildPageData(page, pageSize, sortBy, sortOrder),
       data: DataTool.buildSeriesData(id)
     })
   }

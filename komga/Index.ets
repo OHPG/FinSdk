@@ -4,6 +4,8 @@ export { LibraryApi } from './src/main/ets/api/LibraryApi';
 export { SeriesApi } from './src/main/ets/api/SeriesApi';
 export { SystemApi } from './src/main/ets/api/SystemApi';
 export { UserApi } from './src/main/ets/api/UserApi';
+export { SortBy } from './src/main/ets/enum/SortBy';
+export { SortOrder } from './src/main/ets/enum/SortOrder';
 export { Auth } from './src/main/ets/auth/Auth';
 export { AuthType } from './src/main/ets/auth/AuthType';
 export { BookDto } from './src/main/ets/model/BookDto';
