@@ -1,0 +1,33 @@
+/**
+ * These represent sort orders.
+ * @export
+ * @enum {string}
+ */
+export enum ItemSortBy {
+  Default = 'Default',
+  AiredEpisodeOrder = 'AiredEpisodeOrder',
+  Album = 'Album',
+  AlbumArtist = 'AlbumArtist',
+  Artist = 'Artist',
+  DateCreated = 'DateCreated',
+  OfficialRating = 'OfficialRating',
+  DatePlayed = 'DatePlayed',
+  PremiereDate = 'PremiereDate',
+  StartDate = 'StartDate',
+  SortName = 'SortName',
+  Name = 'Name',
+  Random = 'Random',
+  Runtime = 'Runtime',
+  CommunityRating = 'CommunityRating',
+  ProductionYear = 'ProductionYear',
+  PlayCount = 'PlayCount',
+  CriticRating = 'CriticRating',
+  IsFolder = 'IsFolder',
+  IsUnplayed = 'IsUnplayed',
+  IsPlayed = 'IsPlayed',
+  SeriesSortName = 'SeriesSortName',
+  VideoBitRate = 'VideoBitRate',
+  DateLastContentAdded = 'DateLastContentAdded',
+  ParentIndexNumber = 'ParentIndexNumber',
+  IndexNumber = 'IndexNumber'
+}
