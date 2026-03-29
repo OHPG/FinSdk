@@ -1,0 +1,29 @@
+export interface PlexDirectory {
+  'key'?: string
+  'type'?: string
+  'title'?: string
+  'agent'?: string
+  'scanner'?: string
+  'language'?: string
+  'uuid'?: string
+  'refreshing'?: boolean
+  'thumb'?: string
+  'art'?: string
+  'composite'?: string
+  'filters'?: boolean
+  'allowSync'?: boolean
+  'ratingKey'?: string
+  'parentRatingKey'?: string
+  'guid'?: string
+  'parentGuid'?: string
+  'parentTitle'?: string
+  'summary'?: string
+  'index'?: number
+  'parentIndex'?: number
+  'parentYear'?: number
+  'parentThumb'?: string
+  'leafCount'?: number
+  'viewedLeafCount'?: number
+  'addedAt'?: number
+  'updatedAt'?: number
+}

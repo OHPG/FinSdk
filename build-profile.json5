@@ -45,6 +45,10 @@
     {
       "name": "komga",
       "srcPath": "./komga",
+    },
+    {
+      "name": "plex",
+      "srcPath": "./plex",
     }
   ]
 }

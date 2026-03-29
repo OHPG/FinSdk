@@ -118,7 +118,7 @@ export abstract class ApiClient {
       .then((response: AxiosResponse) => {
         if (response.status === 204) {
           return undefined as T
-        } else if (response.status == 200) {
+        } else if (response.status == 200 || response.status == 201) {
           return JSON.parse(response.data as string) as T
         } else {
           throw new ApiError(response.status, response.data) as Error
