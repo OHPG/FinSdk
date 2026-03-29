@@ -37,11 +37,11 @@ export class EmbyApiClient extends ApiClient {
     return this.getAuthHeader()
   }
 
-  protected getAuthorization(): string {
+  public getAuthorization(): string {
     // https://dev.emby.media/reference/RestAPI/UserService/postUsersAuthenticatebyname.html
     // https://github.com/mediabrowser/emby/wiki/User-Authentication
     return [
-      // `Emby UserId="${encodeURIComponent(this.getSafeId())}"`,
+      `Emby UserId="${encodeURIComponent(this.getSafeId())}"`,
       `Client="${encodeURIComponent(this.clientInfo.name)}"`,
       `Device="${encodeURIComponent(this.deviceInfo.name)}"`,
       `DeviceId="${encodeURIComponent(this.deviceInfo.id)}"`,

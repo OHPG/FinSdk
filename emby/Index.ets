@@ -1,1 +1,17 @@
 export { Emby } from './src/main/ets/Emby';
+export { BaseItemDto } from './src/main/ets/model/BaseItemDto';
+export { BaseItemKind } from './src/main/ets/model/BaseItemKind';
+export { BaseItemPerson } from './src/main/ets/model/BaseItemPerson';
+export { BaseItemDtoQueryResult } from './src/main/ets/model/BaseItemDtoQueryResult';
+export { CollectionType } from './src/main/ets/model/CollectionType';
+export { ImageType } from './src/main/ets/model/ImageType';
+export { ItemFields } from './src/main/ets/model/ItemFields';
+export { ItemFilter } from './src/main/ets/model/ItemFilter';
+export { ItemSortBy } from './src/main/ets/model/ItemSortBy';
+export { MediaProtocol } from './src/main/ets/model/MediaProtocol';
+export { MediaSourceInfo } from './src/main/ets/model/MediaSourceInfo';
+export { MediaStreamType } from './src/main/ets/model/MediaStreamType';
+export { PlaybackInfoResponse } from './src/main/ets/model/PlaybackInfoResponse';
+export { SortOrder } from './src/main/ets/model/SortOrder';
+export { UserItemDataDto } from './src/main/ets/model/UserItemDataDto';
+export { VideoRange } from './src/main/ets/model/VideoRange';
