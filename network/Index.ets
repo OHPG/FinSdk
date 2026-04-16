@@ -1,3 +1,4 @@
+export { HttpClient } from './src/main/ets/api/HttpClient';
 export { ApiClient } from './src/main/ets/api/ApiClient';
 export { ApiError } from './src/main/ets/api/ApiError';
 export { ApiRequest } from './src/main/ets/api/ApiRequest';
