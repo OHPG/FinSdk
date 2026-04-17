@@ -30,6 +30,7 @@ export interface ItemsApiGetItemsRequest {
   readonly enableUserData?: boolean
   readonly enableImages?: boolean
   readonly enableTotalRecordCount?: boolean
+  readonly personIds?: Array<string>
 }
 
 export interface ItemsApiGetResumeItemsRequest {
