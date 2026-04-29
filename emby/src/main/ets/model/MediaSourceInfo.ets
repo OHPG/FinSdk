@@ -238,4 +238,12 @@ export interface MediaSourceInfo {
    * Used only by our Windows app. Not used by Emby Server.
    */
   'ServerId'?: string | null;
+  /**
+   * Gets the direct stream url provided by the server.
+   */
+  'DirectStreamUrl'?: string | null;
+  /**
+   * Whether the api key should be added to the direct stream url.
+   */
+  'AddApiKeyToDirectStreamUrl'?: boolean;
 }
