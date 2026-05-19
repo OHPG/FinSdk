@@ -14,7 +14,8 @@ export class VideosApi extends Api {
     return this.apiClient.createUrl({
       method: "GET",
       path: `/Videos/${requestParameters.itemId}/stream`,
-      parameters: requestParameters
+      parameters: requestParameters,
+      excludeParams: ['itemId']
     })
   }
 }

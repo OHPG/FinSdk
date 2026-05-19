@@ -1524,7 +1524,7 @@ export class VideosApi extends Api {
    */
   public async deleteAlternateSources(requestParameters: VideosApiDeleteAlternateSourcesRequest): Promise<void> {
     this.assertParam(requestParameters.itemId)
-    return this.apiClient.delete({path: `/Videos/${requestParameters.itemId}/AlternateSources`, parameters: requestParameters})
+    return this.apiClient.delete({path: `/Videos/${requestParameters.itemId}/AlternateSources`, parameters: requestParameters, excludeParams: ['itemId']})
   }
 
   /**
@@ -1536,7 +1536,7 @@ export class VideosApi extends Api {
    */
   public async getAdditionalPart(requestParameters: VideosApiGetAdditionalPartRequest): Promise<BaseItemDtoQueryResult> {
     this.assertParam(requestParameters.itemId)
-    return this.apiClient.get({path: `/Videos/${requestParameters.itemId}/AdditionalParts`, parameters: requestParameters})
+    return this.apiClient.get({path: `/Videos/${requestParameters.itemId}/AdditionalParts`, parameters: requestParameters, excludeParams: ['itemId']})
   }
 
   /**
@@ -1548,7 +1548,7 @@ export class VideosApi extends Api {
    */
   public async getVideoStreamUrl(requestParameters: VideosApiGetVideoStreamRequest): Promise<string> {
     this.assertParam(requestParameters.itemId)
-    return this.apiClient.createUrl({ method: "GET", path: `/Videos/${requestParameters.itemId}/stream`, parameters: requestParameters})
+    return this.apiClient.createUrl({ method: "GET", path: `/Videos/${requestParameters.itemId}/stream`, parameters: requestParameters, excludeParams: ['itemId']})
   }
 
   /**
@@ -1561,7 +1561,7 @@ export class VideosApi extends Api {
   public async getVideoStreamUrlByContainer(requestParameters: VideosApiGetVideoStreamByContainerRequest): Promise<string> {
     this.assertParam(requestParameters.itemId)
     this.assertParam(requestParameters.container)
-    return this.apiClient.createUrl({ method: "GET", path: `/Videos/${requestParameters.itemId}/stream.${requestParameters.container}`, parameters: requestParameters})
+    return this.apiClient.createUrl({ method: "GET", path: `/Videos/${requestParameters.itemId}/stream.${requestParameters.container}`, parameters: requestParameters, excludeParams: ['itemId', 'container']})
   }
 
   /**

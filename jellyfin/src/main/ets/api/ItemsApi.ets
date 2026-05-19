@@ -792,7 +792,7 @@ export class ItemsApi extends Api {
    */
   public async getItemUserData(requestParameters: ItemsApiGetItemUserDataRequest): Promise<UserItemDataDto> {
     this.assertParam(requestParameters.itemId)
-    return this.apiClient.get({path: `/UserItems/${requestParameters.itemId}/UserData`, parameters: requestParameters})
+    return this.apiClient.get({path: `/UserItems/${requestParameters.itemId}/UserData`, parameters: requestParameters, excludeParams: ['itemId']})
   }
 
   /**

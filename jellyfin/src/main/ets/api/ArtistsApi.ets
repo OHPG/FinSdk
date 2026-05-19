@@ -520,7 +520,7 @@ export class ArtistsApi extends Api {
    * @memberof ArtistsApi
    */
   public getArtistByName(requestParameters: ArtistsApiGetArtistByNameRequest): Promise<BaseItemDto> {
-    return this.apiClient.get({path: `/Artists/${requestParameters.name}`, parameters: requestParameters})
+    return this.apiClient.get({path: `/Artists/${requestParameters.name}`, parameters: requestParameters, excludeParams: ['name']})
   }
 
   /**

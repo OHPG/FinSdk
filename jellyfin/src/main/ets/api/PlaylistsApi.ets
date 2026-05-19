@@ -318,7 +318,7 @@ export class PlaylistsApi extends Api {
    * @memberof PlaylistsApi
    */
   public addItemToPlaylist(requestParameters: PlaylistsApiAddItemToPlaylistRequest): Promise<void> {
-    return this.apiClient.post({path: `/Playlists/${requestParameters.playlistId}/Items`, parameters: requestParameters})
+    return this.apiClient.post({path: `/Playlists/${requestParameters.playlistId}/Items`, parameters: requestParameters, excludeParams: ['playlistId']})
   }
 
   /**
@@ -342,7 +342,7 @@ export class PlaylistsApi extends Api {
    * @memberof PlaylistsApi
    */
   public getPlaylistItems(requestParameters: PlaylistsApiGetPlaylistItemsRequest): Promise<BaseItemDtoQueryResult> {
-    return this.apiClient.get({path: `/Playlists/${requestParameters.playlistId}/Items`, parameters: requestParameters})
+    return this.apiClient.get({path: `/Playlists/${requestParameters.playlistId}/Items`, parameters: requestParameters, excludeParams: ['playlistId']})
   }
 
   /**
@@ -354,7 +354,7 @@ export class PlaylistsApi extends Api {
    * @memberof PlaylistsApi
    */
   public getPlaylistUser(requestParameters: PlaylistsApiGetPlaylistUserRequest): Promise<PlaylistUserPermissions> {
-    return this.apiClient.get({path: `/Playlists/${requestParameters.playlistId}/Users/${requestParameters.userId}`, parameters: requestParameters})
+    return this.apiClient.get({path: `/Playlists/${requestParameters.playlistId}/Users/${requestParameters.userId}`, parameters: requestParameters, excludeParams: ['playlistId', 'userId']})
   }
 
   /**
@@ -366,7 +366,7 @@ export class PlaylistsApi extends Api {
    * @memberof PlaylistsApi
    */
   public getPlaylistUsers(requestParameters: PlaylistsApiGetPlaylistUsersRequest): Promise<Array<PlaylistUserPermissions>> {
-    return this.apiClient.get({path: `/Playlists/${requestParameters.playlistId}/Users`, parameters: requestParameters})
+    return this.apiClient.get({path: `/Playlists/${requestParameters.playlistId}/Users`, parameters: requestParameters, excludeParams: ['playlistId']})
   }
 
   /**
@@ -390,7 +390,7 @@ export class PlaylistsApi extends Api {
    * @memberof PlaylistsApi
    */
   public removeItemFromPlaylist(requestParameters: PlaylistsApiRemoveItemFromPlaylistRequest): Promise<void> {
-    return this.apiClient.delete({path: `/Playlists/${requestParameters.playlistId}/Items`, parameters: requestParameters})
+    return this.apiClient.delete({path: `/Playlists/${requestParameters.playlistId}/Items`, parameters: requestParameters, excludeParams: ['playlistId']})
   }
 
   /**

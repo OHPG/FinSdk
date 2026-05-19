@@ -12,7 +12,8 @@ export class UserViewsApi extends Api {
   public getUserViews(requestParameters: UserViewsApiGetUserViewsRequest = {}): Promise<BaseItemDtoQueryResult> {
     return this.apiClient.get({
       path: `/Users/${requestParameters.userId}/Views`,
-      parameters: requestParameters
+      parameters: requestParameters,
+      excludeParams: ['userId']
     })
   }
 }

@@ -57,7 +57,8 @@ export class MediaInfoApi extends Api {
     this.assertParam(requestParameters.itemId)
     return this.apiClient.get({
       path: `/Items/${requestParameters.itemId}/PlaybackInfo`,
-      parameters: requestParameters
+      parameters: requestParameters,
+      excludeParams: ['itemId']
     })
   }
 
@@ -65,7 +66,8 @@ export class MediaInfoApi extends Api {
     this.assertParam(requestParameters.itemId)
     return this.apiClient.post({
       path: `/Items/${requestParameters.itemId}/PlaybackInfo`,
-      data: requestParameters.data
+      data: requestParameters.data,
+      excludeParams: ['itemId', 'data']
     })
   }
 }

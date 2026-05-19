@@ -301,7 +301,7 @@ export class MediaInfoApi extends Api {
    */
   public async getPlaybackInfo(requestParameters: MediaInfoApiGetPlaybackInfoRequest): Promise<PlaybackInfoResponse> {
     this.assertParam(requestParameters.itemId)
-    return this.apiClient.get({path: `/Items/${requestParameters.itemId}/PlaybackInfo`, parameters: requestParameters})
+    return this.apiClient.get({path: `/Items/${requestParameters.itemId}/PlaybackInfo`, parameters: requestParameters, excludeParams: ['itemId']})
   }
 
   /**
@@ -324,6 +324,6 @@ export class MediaInfoApi extends Api {
    * @memberof MediaInfoApi
    */
   public async openLiveStream(requestParameters: MediaInfoApiOpenLiveStreamRequest = {}): Promise<LiveStreamResponse> {
-    return this.apiClient.post({path: "/LiveStreams/Open", parameters: requestParameters, data: requestParameters.openLiveStreamDto})
+    return this.apiClient.post({path: "/LiveStreams/Open", parameters: requestParameters, data: requestParameters.openLiveStreamDto, excludeParams: ['openLiveStreamDto']})
   }
 }

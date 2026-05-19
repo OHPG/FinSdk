@@ -36,13 +36,15 @@ export class UserLibraryApi extends Api {
     this.assertParam(requestParameters.itemId)
     return this.apiClient.get({
       path: `/Users/${requestParameters.userId}/Items/${requestParameters.itemId}`,
+      excludeParams: ['userId', 'itemId']
     })
   }
 
   public async getLatestMedia(requestParameters: UserLibraryApiGetLatestMediaRequest = {}): Promise<Array<BaseItemDto>> {
     return this.apiClient.get({
       path: `/Users/${requestParameters.userId}/Items/Latest`,
-      parameters: requestParameters
+      parameters: requestParameters,
+      excludeParams: ['userId']
     })
   }
 
@@ -50,6 +52,7 @@ export class UserLibraryApi extends Api {
     this.assertParam(requestParameters.itemId)
     return this.apiClient.post({
       path: `/Users/${requestParameters.userId}/FavoriteItems/${requestParameters.itemId}`,
+      excludeParams: ['userId', 'itemId']
     })
   }
 
@@ -57,6 +60,7 @@ export class UserLibraryApi extends Api {
     this.assertParam(requestParameters.itemId)
     return this.apiClient.delete({
       path: `/Users/${requestParameters.userId}/FavoriteItems/${requestParameters.itemId}`,
+      excludeParams: ['userId', 'itemId']
     })
   }
 }

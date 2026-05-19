@@ -56,13 +56,13 @@ export class HttpClient {
         if (Array.isArray(value)) {
           let array = new Array<string>()
           value.forEach((v: ESObject) => {
-            if (v !== undefined && v !== null) {
+            if (v !== undefined && v !== null && v !== '') {
               array.push(`${encodeURIComponent(key)}=${encodeURIComponent(v)}`)
             }
           })
           return array.join('&')
         }
-        if (value === undefined || value === null) {
+        if (value === undefined || value === null || value === '') {
           return ""
         }
         return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
@@ -79,6 +79,24 @@ export class HttpClient {
     }
   }
 
+  private filterParams(request: ApiRequest): object | undefined {
+    if (!request.parameters) {
+      return undefined
+    }
+    if (!request.excludeParams || request.excludeParams.length === 0) {
+      return request.parameters
+    }
+    let params = request.parameters as Record<string, ESObject>
+    let filtered: Record<string, ESObject> = {}
+    let excludes = request.excludeParams
+    Object.keys(params).forEach(key => {
+      if (!excludes.includes(key)) {
+        filtered[key] = params[key]
+      }
+    })
+    return filtered
+  }
+
   private async request<T>(request: ApiRequest, method: string): Promise<T> {
     if (this.axios == undefined) {
       throw new ApiError(403, "Server not set.") as Error
@@ -89,7 +107,7 @@ export class HttpClient {
       baseURL: request.url,
       method: method,
       headers: this.getHeaders(request),
-      params: request.parameters,
+      params: this.filterParams(request),
       data: request.data
     }
     return this.axios
@@ -152,7 +170,7 @@ export class HttpClient {
     let config: AxiosRequestConfig = {
       url: request.path,
       method: "GET",
-      params: request.parameters
+      params: this.filterParams(request)
     }
     return this.axios.getUri(config)
   }

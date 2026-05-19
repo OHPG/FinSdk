@@ -51,21 +51,24 @@ export class ItemsApi extends Api {
     this.assertParam(requestParameters.itemId)
     return this.apiClient.get({
       path: `/Users/${requestParameters.userId}/Items/${requestParameters.itemId}/UserData`,
-      parameters: requestParameters
+      parameters: requestParameters,
+      excludeParams: ['userId', 'itemId']
     })
   }
 
   public async getItems(requestParameters: ItemsApiGetItemsRequest = {}): Promise<BaseItemDtoQueryResult> {
     return this.apiClient.get({
       path: `/Users/${requestParameters.userId}/Items`,
-      parameters: requestParameters
+      parameters: requestParameters,
+      excludeParams: ['userId']
     })
   }
 
   public async getResumeItems(requestParameters: ItemsApiGetResumeItemsRequest = {}): Promise<BaseItemDtoQueryResult> {
     return this.apiClient.get({
       path: `/Users/${requestParameters.userId}/Items/Resume`,
-      parameters: requestParameters
+      parameters: requestParameters,
+      excludeParams: ['userId']
     })
   }
 }

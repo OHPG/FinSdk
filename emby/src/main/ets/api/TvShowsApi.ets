@@ -23,7 +23,6 @@ export interface TvShowsApiGetNextUpRequest {
   readonly enableImages?: boolean
   readonly enableUserData?: boolean
   readonly enableTotalRecordCount?: boolean
-  readonly enableResumable?: boolean
 }
 
 export interface TvShowsApiGetSeasonsRequest {
@@ -40,7 +39,8 @@ export class TvShowsApi extends Api {
     this.assertParam(requestParameters.seriesId)
     return this.apiClient.get({
       path: `/Shows/${requestParameters.seriesId}/Episodes`,
-      parameters: requestParameters
+      parameters: requestParameters,
+      excludeParams: ['seriesId']
     })
   }
 
@@ -55,7 +55,8 @@ export class TvShowsApi extends Api {
     this.assertParam(requestParameters.seriesId)
     return this.apiClient.get({
       path: `/Shows/${requestParameters.seriesId}/Seasons`,
-      parameters: requestParameters
+      parameters: requestParameters,
+      excludeParams: ['seriesId']
     })
   }
 }

@@ -295,7 +295,7 @@ export class UserLibraryApi extends Api {
    */
   public async deleteUserItemRating(requestParameters: UserLibraryApiDeleteUserItemRatingRequest): Promise<UserItemDataDto> {
     this.assertParam(requestParameters.itemId)
-    return this.apiClient.delete({path: `/UserItems/${requestParameters.itemId}/Rating`, parameters: requestParameters})
+    return this.apiClient.delete({path: `/UserItems/${requestParameters.itemId}/Rating`, parameters: requestParameters, excludeParams: ['itemId']})
   }
 
   /**
@@ -307,7 +307,7 @@ export class UserLibraryApi extends Api {
    */
   public async getIntros(requestParameters: UserLibraryApiGetIntrosRequest): Promise<BaseItemDtoQueryResult> {
     this.assertParam(requestParameters.itemId)
-    return this.apiClient.get({path: `/Items/${requestParameters.itemId}/Intros`, parameters: requestParameters})
+    return this.apiClient.get({path: `/Items/${requestParameters.itemId}/Intros`, parameters: requestParameters, excludeParams: ['itemId']})
   }
 
   /**
@@ -319,7 +319,7 @@ export class UserLibraryApi extends Api {
    */
   public async getItem(requestParameters: UserLibraryApiGetItemRequest): Promise<BaseItemDto> {
     this.assertParam(requestParameters.itemId)
-    return this.apiClient.get({path: `/Items/${requestParameters.itemId}`, parameters: requestParameters})
+    return this.apiClient.get({path: `/Items/${requestParameters.itemId}`, parameters: requestParameters, excludeParams: ['itemId']})
   }
 
   /**
@@ -342,7 +342,7 @@ export class UserLibraryApi extends Api {
    */
   public async getLocalTrailers(requestParameters: UserLibraryApiGetLocalTrailersRequest): Promise<Array<BaseItemDto>> {
     this.assertParam(requestParameters.itemId)
-    return this.apiClient.get({path: `/Items/${requestParameters.itemId}/LocalTrailers`, parameters: requestParameters})
+    return this.apiClient.get({path: `/Items/${requestParameters.itemId}/LocalTrailers`, parameters: requestParameters, excludeParams: ['itemId']})
   }
 
   /**
@@ -365,7 +365,7 @@ export class UserLibraryApi extends Api {
    */
   public async getSpecialFeatures(requestParameters: UserLibraryApiGetSpecialFeaturesRequest): Promise<BaseItemDto> {
     this.assertParam(requestParameters.itemId)
-    return this.apiClient.get({path: `/Items/${requestParameters.itemId}/SpecialFeatures`, parameters: requestParameters})
+    return this.apiClient.get({path: `/Items/${requestParameters.itemId}/SpecialFeatures`, parameters: requestParameters, excludeParams: ['itemId']})
   }
 
   /**
@@ -377,7 +377,7 @@ export class UserLibraryApi extends Api {
    */
   public async markFavoriteItem(requestParameters: UserLibraryApiMarkFavoriteItemRequest): Promise<UserItemDataDto> {
     this.assertParam(requestParameters.itemId)
-    return this.apiClient.post({path: `/UserFavoriteItems/${requestParameters.itemId}`, parameters: requestParameters})
+    return this.apiClient.post({path: `/UserFavoriteItems/${requestParameters.itemId}`, parameters: requestParameters, excludeParams: ['itemId']})
   }
 
   /**
@@ -389,7 +389,7 @@ export class UserLibraryApi extends Api {
    */
   public async unmarkFavoriteItem(requestParameters: UserLibraryApiUnmarkFavoriteItemRequest): Promise<UserItemDataDto> {
     this.assertParam(requestParameters.itemId)
-    return this.apiClient.delete({path: `/UserFavoriteItems/${requestParameters.itemId}`, parameters: requestParameters})
+    return this.apiClient.delete({path: `/UserFavoriteItems/${requestParameters.itemId}`, parameters: requestParameters, excludeParams: ['itemId']})
   }
 
   /**
@@ -401,6 +401,6 @@ export class UserLibraryApi extends Api {
    */
   public async updateUserItemRating(requestParameters: UserLibraryApiUpdateUserItemRatingRequest): Promise<UserItemDataDto> {
     this.assertParam(requestParameters.itemId)
-    return this.apiClient.post({path: `/UserItems/${requestParameters.itemId}/Rating`, parameters: requestParameters})
+    return this.apiClient.post({path: `/UserItems/${requestParameters.itemId}/Rating`, parameters: requestParameters, excludeParams: ['itemId']})
   }
 }

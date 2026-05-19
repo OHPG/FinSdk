@@ -391,7 +391,7 @@ export class TvShowsApi extends Api {
    */
   public async getEpisodes(requestParameters: TvShowsApiGetEpisodesRequest): Promise<BaseItemDtoQueryResult> {
     this.assertParam(requestParameters.seriesId)
-    return this.apiClient.get({path: `/Shows/${requestParameters.seriesId}/Episodes`, parameters: requestParameters})
+    return this.apiClient.get({path: `/Shows/${requestParameters.seriesId}/Episodes`, parameters: requestParameters, excludeParams: ['seriesId']})
   }
 
   /**
@@ -414,7 +414,7 @@ export class TvShowsApi extends Api {
    */
   public async getSeasons(requestParameters: TvShowsApiGetSeasonsRequest): Promise<BaseItemDtoQueryResult> {
     this.assertParam(requestParameters.seriesId)
-    return this.apiClient.get({path: `/Shows/${requestParameters.seriesId}/Seasons`, parameters: requestParameters})
+    return this.apiClient.get({path: `/Shows/${requestParameters.seriesId}/Seasons`, parameters: requestParameters, excludeParams: ['seriesId']})
   }
 
   /**

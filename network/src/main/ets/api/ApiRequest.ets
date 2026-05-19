@@ -24,6 +24,11 @@ export interface ApiRequest {
   readonly parameters?: object
 
   /**
+   * Keys to exclude from query string serialization (e.g. path params already in URL).
+   */
+  readonly excludeParams?: Array<string>
+
+  /**
    * body
    */
   readonly data?: object
