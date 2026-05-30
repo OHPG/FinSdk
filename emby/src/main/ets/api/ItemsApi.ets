@@ -27,6 +27,7 @@ export interface ItemsApiGetItemsRequest {
   readonly isFavorite?: boolean
   readonly sortBy?: Array<ItemSortBy>
   readonly isPlayed?: boolean
+  readonly genres?: Array<string>
   readonly enableUserData?: boolean
   readonly enableImages?: boolean
   readonly enableTotalRecordCount?: boolean
@@ -43,6 +44,13 @@ export interface ItemsApiGetResumeItemsRequest {
   readonly enableUserData?: boolean
   readonly enableImages?: boolean
   readonly enableTotalRecordCount?: boolean
+}
+
+export interface ItemsApiGetSimilarItemsRequest {
+  readonly itemId: string
+  readonly userId?: string
+  readonly limit?: number
+  readonly fields?: Array<ItemFields>
 }
 
 export class ItemsApi extends Api {
@@ -69,6 +77,14 @@ export class ItemsApi extends Api {
       path: `/Users/${requestParameters.userId}/Items/Resume`,
       parameters: requestParameters,
       excludeParams: ['userId']
+    })
+  }
+
+  public async getSimilarItems(requestParameters: ItemsApiGetSimilarItemsRequest): Promise<BaseItemDtoQueryResult> {
+    return this.apiClient.get({
+      path: `/Items/${requestParameters.itemId}/Similar`,
+      parameters: requestParameters,
+      excludeParams: ['itemId']
     })
   }
 }
