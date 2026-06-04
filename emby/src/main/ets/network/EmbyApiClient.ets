@@ -23,8 +23,11 @@ export class EmbyApiClient extends ApiClient {
     let params = result as Record<string, ESObject>
     let converted: Record<string, ESObject> = {}
     Object.keys(params).forEach(key => {
-      let pascalKey = key.charAt(0).toUpperCase() + key.slice(1)
       let value: ESObject = params[key]
+      if (value === undefined || value === null) {
+        return
+      }
+      let pascalKey = key.charAt(0).toUpperCase() + key.slice(1)
       if (Array.isArray(value)) {
         let values = new Array<string>()
         value.forEach((v: ESObject) => {
@@ -32,7 +35,9 @@ export class EmbyApiClient extends ApiClient {
             values.push(String(v))
           }
         })
-        converted[pascalKey] = values.join(',')
+        if (values.length > 0) {
+          converted[pascalKey] = values.join(',')
+        }
       } else {
         converted[pascalKey] = value
       }
