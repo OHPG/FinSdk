@@ -15,6 +15,31 @@ export class EmbyApiClient extends ApiClient {
     this.userInfo = userInfo
   }
 
+  protected filterParams(request: ApiRequest): object | undefined {
+    let result = super.filterParams(request)
+    if (!result) {
+      return undefined
+    }
+    let params = result as Record<string, ESObject>
+    let converted: Record<string, ESObject> = {}
+    Object.keys(params).forEach(key => {
+      let pascalKey = key.charAt(0).toUpperCase() + key.slice(1)
+      let value: ESObject = params[key]
+      if (Array.isArray(value)) {
+        let values = new Array<string>()
+        value.forEach((v: ESObject) => {
+          if (v !== undefined && v !== null && v !== '') {
+            values.push(String(v))
+          }
+        })
+        converted[pascalKey] = values.join(',')
+      } else {
+        converted[pascalKey] = value
+      }
+    })
+    return converted
+  }
+
   protected getHeaders(request: ApiRequest): Record<string, string> {
     if (request.path.endsWith("/Users/AuthenticateByName")) {
       return this.getAuthHeader()

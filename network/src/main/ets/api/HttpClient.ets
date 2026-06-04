@@ -79,7 +79,7 @@ export class HttpClient {
     }
   }
 
-  private filterParams(request: ApiRequest): object | undefined {
+  protected filterParams(request: ApiRequest): object | undefined {
     if (!request.parameters) {
       return undefined
     }
