@@ -14,6 +14,7 @@ import { TrickPlayApi } from "./api/TrickPlayApi";
 import { TvShowsApi } from "./api/TvShowsApi";
 import { UserApi } from "./api/UserApi";
 import { UserLibraryApi } from "./api/UserLibraryApi";
+import { UsersApi } from "./api/UsersApi";
 import { UserViewsApi } from "./api/UserViewsApi";
 import { VideosApi } from "./api/VideosApi";
 import { ClientInfo, UserInfo } from "@ohpg/network";
@@ -39,6 +40,8 @@ export class Jellyfin {
   private libraryApi?: LibraryApi
 
   private userLibraryApi?: UserLibraryApi
+
+  private usersApi?: UsersApi
 
   private itemsApi?: ItemsApi
 
@@ -107,6 +110,13 @@ export class Jellyfin {
       this.userLibraryApi = new UserLibraryApi(this.apiClient)
     }
     return this.userLibraryApi
+  }
+
+  public getUsersApi(): UsersApi {
+    if (!this.usersApi) {
+      this.usersApi = new UsersApi(this.apiClient)
+    }
+    return this.usersApi
   }
 
   public getLibraryApi(): LibraryApi {
