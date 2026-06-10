@@ -47,37 +47,59 @@ export class EmbyApiClient extends ApiClient {
 
   protected getHeaders(request: ApiRequest): Record<string, string> {
     if (request.path.endsWith("/Users/AuthenticateByName")) {
-      return this.getAuthHeader()
+      return this.getLoginHeader()
     } else {
-      return this.getAuthHeader()
+      return this.getNormalHeader()
     }
   }
 
-  private getAuthHeader(): Record<string, string> {
-    let header: Record<string, string> = {
+  /**
+   * 登录请求 header：使用 X-Emby-Authorization（不含 Token）
+   */
+  private getLoginHeader(): Record<string, string> {
+    return {
       'Content-Type': 'application/json',
       'Accept': 'application/json, application/octet-stream;q=0.9, */*;q=0.8',
-      'Authorization': this.getAuthorization(),
+      'X-Emby-Authorization': this.buildEmbyAuthorization(false),
       'User-Agent': `${this.clientInfo.name}/${this.clientInfo.version} (HarmonyOS)`
     }
-    return header
   }
 
+  /**
+   * 普通请求 header：使用 X-Emby-Authorization（含 Token）
+   */
   private getNormalHeader(): Record<string, string> {
-    return this.getAuthHeader()
+    return {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json, application/octet-stream;q=0.9, */*;q=0.8',
+      'X-Emby-Authorization': this.buildEmbyAuthorization(true),
+      'User-Agent': `${this.clientInfo.name}/${this.clientInfo.version} (HarmonyOS)`
+    }
   }
 
-  public getAuthorization(): string {
-    // https://dev.emby.media/reference/RestAPI/UserService/postUsersAuthenticatebyname.html
-    // https://github.com/mediabrowser/emby/wiki/User-Authentication
-    return [
-      `Emby UserId="${encodeURIComponent(this.getSafeId())}"`,
+  /**
+   * 构建 X-Emby-Authorization 值
+   * 格式参照 Emby 官方 JS SDK：MediaBrowser Client="...", Device="...", DeviceId="...", Version="...", Token="..."
+   * @param includeToken 是否包含 Token（登录请求时不含）
+   */
+  private buildEmbyAuthorization(includeToken: boolean): string {
+    let values: string[] = [
       `Client="${encodeURIComponent(this.clientInfo.name)}"`,
       `Device="${encodeURIComponent(this.deviceInfo.name)}"`,
       `DeviceId="${encodeURIComponent(this.deviceInfo.id)}"`,
-      `Version="${encodeURIComponent(this.clientInfo.version)}"`,
-      `Token="${encodeURIComponent(this.getSafeToken())}"`
-    ].join(', ');
+      `Version="${encodeURIComponent(this.clientInfo.version)}"`
+    ]
+    if (includeToken) {
+      let token = this.getSafeToken()
+      if (token) {
+        values.push(`Token="${encodeURIComponent(token)}"`)
+      }
+    }
+    return `MediaBrowser ${values.join(', ')}`
+  }
+
+  public getAuthorization(): string {
+    return this.buildEmbyAuthorization(true)
   }
 
   private getSafeId(): string {
