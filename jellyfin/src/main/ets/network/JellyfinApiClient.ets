@@ -24,33 +24,35 @@ export class JellyfinApiClient extends ApiClient {
   }
 
   /**
-   * 登录请求 header：使用 X-Emby-Authorization（不含 Token）
+   * 登录请求 header：使用标准 Authorization header（不含 Token）
+   * Jellyfin 12.0 移除了 X-Emby-Authorization，必须使用标准 Authorization header
    */
   private getLoginHeader(): Record<string, string> {
     return {
       'Content-Type': 'application/json',
       'Accept': 'application/json, application/octet-stream;q=0.9, */*;q=0.8',
-      'X-Emby-Authorization': this.buildAuthorization(false),
+      'Authorization': this.buildAuthorization(false),
       'User-Agent': `${this.clientInfo.name}/${this.clientInfo.version} (HarmonyOS)`
     }
   }
 
   /**
-   * 普通请求 header：使用 X-Emby-Authorization（含 Token）
+   * 普通请求 header：使用标准 Authorization header（含 Token）
+   * Jellyfin 12.0 移除了 X-Emby-Authorization，必须使用标准 Authorization header
    */
   private getNormalHeader(): Record<string, string> {
     return {
       'Content-Type': 'application/json',
       'Accept': 'application/json, application/octet-stream;q=0.9, */*;q=0.8',
-      'X-Emby-Authorization': this.buildAuthorization(true),
+      'Authorization': this.buildAuthorization(true),
       'User-Agent': `${this.clientInfo.name}/${this.clientInfo.version} (HarmonyOS)`
     }
   }
 
   /**
-   * 构建 X-Emby-Authorization 值
+   * 构建 Authorization header 值
    * 格式：MediaBrowser Client="...", Device="...", DeviceId="...", Version="...", Token="..."
-   * Jellyfin 10.12+ 默认不再支持标准 Authorization header，必须使用 X-Emby-Authorization
+   * Jellyfin 12.0 移除了旧的 X-Emby-Authorization，统一使用标准 Authorization header
    * @param includeToken 是否包含 Token（登录请求时不含）
    */
   private buildAuthorization(includeToken: boolean): string {
