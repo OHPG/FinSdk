@@ -18,6 +18,8 @@ export interface UserLibraryApiGetLatestMediaRequest {
   readonly groupItems?: boolean
   readonly enableImages?: boolean
   readonly enableUserData?: boolean
+  /** 按已看/未看过滤；false 表示只返回未看完 */
+  readonly isPlayed?: boolean
 }
 
 export interface UserLibraryApiMarkFavoriteItemRequest {
