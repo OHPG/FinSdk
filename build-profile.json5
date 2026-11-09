@@ -49,6 +49,10 @@
     {
       "name": "plex",
       "srcPath": "./plex",
+    },
+    {
+      "name": "fnos",
+      "srcPath": "./fnos",
     }
   ]
 }
