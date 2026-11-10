@@ -13,3 +13,13 @@ export {
 } from './src/main/ets/model/FnosBaseItem';
 export { FnosImageType, FnosLibraryType, FNOS_TICKS_PER_MS, fnosTicksToMs, fnosMsToTicks } from './src/main/ets/model/FnosEnums';
 export { FnosLibrary } from './src/main/ets/model/FnosLibrary';
+export { FnosNative } from './src/main/ets/native/FnosNative';
+export { FnosNativeApiClient } from './src/main/ets/native/network/FnosNativeApiClient';
+export { FnosNativeUserApi } from './src/main/ets/native/api/FnosNativeUserApi';
+export { FnosNativeLibraryApi } from './src/main/ets/native/api/FnosNativeLibraryApi';
+export { FnosNativeUserDataApi } from './src/main/ets/native/api/FnosNativeUserDataApi';
+export { FnosNativePlaybackApi } from './src/main/ets/native/api/FnosNativePlaybackApi';
+export { AuthxProvider, FnosAuthxKey } from './src/main/ets/native/auth/AuthxProvider';
+export { WebBootstrapAuthxProvider } from './src/main/ets/native/auth/WebBootstrapAuthxProvider';
+export { FnosAuthxSigner, FnosQueryPair } from './src/main/ets/native/auth/FnosAuthxSigner';
+export * from './src/main/ets/native/model/FnosNativeModels';

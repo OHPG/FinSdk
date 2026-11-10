@@ -33,4 +33,10 @@ export interface ApiRequest {
    */
   readonly data?: object
 
+  /**
+   * Already serialized body, sent as-is by the rcp path (HttpClient.sendRaw / put / patch).
+   * Takes precedence over [data] there. Lets callers sign the exact bytes that are sent.
+   */
+  readonly rawBody?: string
+
 }

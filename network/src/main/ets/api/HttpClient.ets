@@ -127,8 +127,9 @@ export class HttpClient {
     if (this.rcpSession == undefined) {
       throw new ApiError(403, "Server not set.") as Error
     }
+    let content: string | object | undefined = request.rawBody !== undefined ? request.rawBody : request.data
     let rcpRequest: rcp.Request = new rcp.Request(
-      request.path, method, this.getHeaders(request), request.data
+      request.path, method, this.getHeaders(request), content
     )
     return this.rcpSession
       .fetch(rcpRequest)
@@ -153,6 +154,14 @@ export class HttpClient {
 
   public async put<T>(request: ApiRequest): Promise<T> {
     return this.rcpRequest(request, "PUT")
+  }
+
+  /**
+   * Send any method through rcp. Query must already be part of request.path,
+   * body is taken from request.rawBody (sent byte-for-byte).
+   */
+  public async sendRaw<T>(request: ApiRequest, method: string): Promise<T> {
+    return this.rcpRequest(request, method)
   }
 
   public async get<T>(request: ApiRequest): Promise<T> {
